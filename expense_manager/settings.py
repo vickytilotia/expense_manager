@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
+import django_heroku
+
 
 from pathlib import Path
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "expenses",
+    "authentication",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +59,7 @@ ROOT_URLCONF = "expense_manager.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR,'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -62,6 +67,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                
             ],
         },
     },
@@ -73,10 +79,19 @@ WSGI_APPLICATION = "expense_manager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Using postgresql database 
+# Created .env file and from there importing the user and password 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME":"expensedb",
+        "USER" : "postgres",
+        "PASSWORD" : "postgres123",
+        "HOST" : "localhost",
+        # "NAME": os.environ.get('DB_NAME'),
+        # "USER" : os.environ.get('DB_USER'),
+        # "PASSWORD" : os.environ.get('DB_USER_PASSWORD'),
+        # "HOST" : os.environ.get('DB_HOST')
     }
 }
 
@@ -115,9 +130,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'expense_manager/static')]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# what is the differnece in static root vs static url 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+django_heroku.settings(locals())
