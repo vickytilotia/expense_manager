@@ -25,32 +25,22 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
   </head>
+
   <body>
 
-
-<div class="container-fluid">
-  <div class="row">
+    <main role="main">
     
-
-    <main class="col-md-12">
-      
-        <div class="card"></div>
-        
-        <div class ="col-md-3"></div>
-        <div class ="col-md-6">
             {% block content %}
 
             {% endblock content %}
-        </div>
-        <div class ="col-md-3"></div>
+        
          
         
         
 
       
     </main>
-  </div>
-</div>
+   
 
 
     <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
